@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Course</title>
+  </head>
+  <body>
+    <h1><%= it.course.name %></h1>
+    <p>How would you rate this course?</p>
+    <form method="POST" action="/courses/<%= it.course.id %>/feedbacks/1">
+      <input type="submit" value="Poor"></input>
+    </form>
+    <form method="POST" action="/courses/<%= it.course.id %>/feedbacks/2">
+      <input type="submit" value="Fair"></input>
+    </form>
+    <form method="POST" action="/courses/<%= it.course.id %>/feedbacks/3">
+      <input type="submit" value="Good"></input>
+    </form>
+    <form method="POST" action="/courses/<%= it.course.id %>/feedbacks/4">
+      <input type="submit" value="Very good"></input>
+    </form>
+    <form method="POST" action="/courses/<%= it.course.id %>/feedbacks/5">
+      <input type="submit" value="Excellent"></input>
+    </form>
+  </body>
+    <p><a href="/courses">Back to courses</a></p>
+  </body>
+</html>
