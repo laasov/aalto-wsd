@@ -4,9 +4,10 @@
     <title>Courses</title>
   </head>
   <body>
+    <%~ include("/partials/validation-errors.eta", { field: "Name", errors: it?.errors?.name?._errors }) %>
     <form method="POST" action="/courses">
       <label for="course">Course name:</label>
-      <input type="text" id="course" name="name" />
+      <input type="text" id="course" name="name" value="<%=it?.name ?? '' %>" />
       <br/>
       <input type="submit" value="Add" />
     </form>
