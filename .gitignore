@@ -1,3 +1,5 @@
 deno.*
 .DS_store
 archive/
+xarchive/
+xdataValidationArchive/
