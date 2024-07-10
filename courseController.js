@@ -1,6 +1,8 @@
 import { Eta } from "https://deno.land/x/eta@v3.4.0/src/index.ts";
 import { z } from "https://deno.land/x/zod@v3.22.4/mod.ts";
 import * as courseService from "./courseService.js";
+import { getCookie, setCookie, } from "https://deno.land/x/hono@v3.12.11/helper.ts";
+  
 
 const eta = new Eta({ views: `${Deno.cwd()}/templates/` });
 
@@ -9,6 +11,8 @@ const validator = z.object({
   });
 
 const showCourses = async (c) => {
+    const sessionId = await getCookie(c,  "sessionId") ?? crypto.randomUUID();
+    setCookie(c, "sessionId", sessionId, { path: "/", });
     return c.html(
       eta.render("courses.eta", { courses: await courseService.listCourses() }),
     );
@@ -17,7 +21,9 @@ const showCourses = async (c) => {
 const showCourse = async (c) => {
     const id = c.req.param("id");
     return c.html(
-        eta.render("course.eta", { course: await courseService.getCourse(id) }),
+        eta.render("course.eta",
+            { course: await courseService.getCourse(id),
+              cookie: getCookie(c, id)}),
       );
 };
 
@@ -28,7 +34,6 @@ const createCourse = async (c) => {
     if (!validationResult.success) {
         return c.html(
             eta.render("courses.eta", {
-                ...body,
                 errors: validationResult.error.format(),
                 courses: await courseService.listCourses()
             })

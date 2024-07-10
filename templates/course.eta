@@ -4,6 +4,9 @@
     <title>Course</title>
   </head>
   <body>
+    <% if (it.cookie === "rated") { %>
+      <p>You have already given feedback for this course. Thank you!</p>
+    <% } else { %>
     <h1><%= it.course.name %></h1>
     <p>How would you rate this course?</p>
     <form method="POST" action="/courses/<%= it.course.id %>/feedbacks/1">
@@ -21,6 +24,7 @@
     <form method="POST" action="/courses/<%= it.course.id %>/feedbacks/5">
       <input type="submit" value="Excellent"></input>
     </form>
+    <% } %>
   </body>
     <p><a href="/courses">Back to courses</a></p>
   </body>
